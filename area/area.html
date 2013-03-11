@@ -49,8 +49,8 @@
             </div>
             <div data-theme="b" data-role="footer" data-position="fixed">
                 <h1 class="footer">
-                    Av. T-4, nº 1.478, Ed. Absolut Business Style, sala A-132 (13º andar)<br>
-                    Setor Bueno, Goiânia-GO
+                    Av. T-4, nº 1.478, Ed. Absolut Business Style,<br>
+                    sala A-132 (13º andar) - Setor Bueno, Goiânia-GO
                 </h1>
             </div>
         </div>
