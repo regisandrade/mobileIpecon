@@ -15,16 +15,37 @@
         <script src="../js/my.js"></script>
     </head>
     <body>
-        <div data-role="page" id="contato">
-            <div data-theme="b" data-role="header">
+        <div data-role="page" id="page1">
+            <div data-theme="a" data-role="header">
                 <h1 class="header">
-                    IPECON
+                    ipecon
                 </h1>
             </div>
             <div data-role="content">
                 <h2>
                     Contato
                 </h2>
+                <form action="" method="POST">
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup">
+                            <input name="txtEmail" id="txtEmail" value="" type="text" placeholder="E-mail" />
+                        </fieldset>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup">
+                            <input name="txtAssunto" id="txtAssunto" value="" type="text" placeholder="Assunto" />
+                        </fieldset>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup">
+                            <textarea name="txtMensagem" id="txtMensagem" placeholder="Mensagem"></textarea>
+                        </fieldset>
+                    </div>
+                    <input type="submit" data-inline="true" data-theme="b" data-icon="check" data-iconpos="left" value="Enviar" />
+                    <a data-role="button" data-inline="true" data-rel="back" data-theme="e" href="#page1">
+                        Voltar
+                    </a>
+                </form>
                 <p>
                 Av. T-4, nº 1478, Edf. Absolut Business Style, Sala A-132 (13º andar)<br>
                 Setor Bueno, Goiânia/GO - CEP: 74230-030<br>
@@ -32,9 +53,6 @@
                 (62) 3214-3229<br>
                 <a href="mailto:ipecon@ipecon.com.br">ipecon@ipecon.com.br</a><br>
                 </p>
-                <a data-role="button" data-inline="true" data-rel="back" data-theme="e" href="#page1">
-                    Voltar
-                </a>
             </div>
             <div data-theme="b" data-role="footer" data-position="fixed">
                 <h1 class="footer">
