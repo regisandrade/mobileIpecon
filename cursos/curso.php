@@ -1,3 +1,32 @@
+<?php
+session_start();
+session_destroy();
+
+/** DEFINIR A CONSTANTES DO SITE **/
+define("website", 7); // Código do Website na tabela website
+define("urlImagens", "http://www.gcinfo.com.br/arquivos/fotos/");
+define("urlGalerias", "http://www.gcinfo.com.br/arquivos/galeriaFotos/");
+
+/** CLASSE DE CONEXAO E OUTRAS FUNCIONALIDADES **/
+require_once('../class/BDMySQL.class.php');
+$conexao = new BDMySQL();
+$conexao->conectar();
+
+/** CLASSE DE NEGOCIO E PERSISTENCIA GCINFO **/
+require_once("../class/gcinfo.class.php");
+$gcinfo = new Gcinfo();
+
+/** CLASSE DE UTILITARIOS **/
+require_once("../class/util.class.php");
+$util = new Util();
+
+// Cursos
+// consultarMaterias -> $_codgConsulta, $_codgMateria = NULL, $_codgEditoria = NULL, $_website = NULL
+$gcinfo->consultarMaterias(2,$_REQUEST['idMateria'],NULL,website);
+$curso = $conexao->retornaObj();
+$numRegistros = $conexao->numRows();
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,33 +38,13 @@
 
         <link rel="stylesheet" href="../css/jquery.mobile-1.2.0.min.css" />
         <link rel="stylesheet" href="../css/my.css" />
-        <style>
-            .ui-content, #map_canvas {
-                width: 85%;
-                height: 85%;
-            }
-        </style>
         
         <script src="../js/jquery-1.7.2.min.js"></script>
         <script src="../js/jquery.mobile-1.2.0.min.js"></script>
         <script src="../js/my.js"></script>
-
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-        <script>
-            var map;
-            function initialize() {
-                var mapOptions = {
-                    zoom: 15,
-                    center: new google.maps.LatLng(-16.7193978, -49.2668751),
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-                map = new google.maps.Map(document.getElementById('map_canvas'),mapOptions);
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
-        </script>
     </head>
     <body>
-        <div data-role="page" id="localizacao">
+        <div data-role="page" id="page1">
             <div data-theme="b" data-role="header">
                 <h1 class="header">
                     IPECON
@@ -43,15 +52,16 @@
             </div>
             <div data-role="content">
                 <h2>
-                    Localização
+                    Cursos
                 </h2>
-                <span id="map_canvas"></span>
                 <p>
-                    Av. T-4, nº 1478, Edf. Absolut Business Style, Sala A-132 (13º andar)<br>
-                    Setor Bueno, Goiânia/GO - CEP: 74230-030<br>
-                    (62) 3214-2563<br>
-                    (62) 3214-3229<br>
-                    <a href="mailto:ipecon@ipecon.com.br">ipecon@ipecon.com.br</a><br>
+                    <?php
+                    if($numRegistros > 0){
+                        echo stripslashes($curso->info_completa);
+                    }else{
+                        echo "<span>Conteúdo do curso não cadastrado.</span>";
+                    }
+                    ?>
                 </p>
                 <a data-role="button" data-inline="true" data-rel="back" data-theme="e" href="#page1">
                     Voltar
