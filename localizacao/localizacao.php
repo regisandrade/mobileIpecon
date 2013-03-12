@@ -13,8 +13,17 @@
         <script src="../js/jquery-1.7.2.min.js"></script>
         <script src="../js/jquery.mobile-1.2.0.min.js"></script>
         <script src="../js/my.js"></script>
+
+        <script type="text/javascript">
+            var largura = screen.width;
+            var altura  = screen.height;
+        </script>
     </head>
     <body>
+        <?php
+            $largura = "<script type=text/javascript> document.write(largura); </script>";
+            $altura = "<script type =text/javascript> document.write(altura); </script>";
+        ?>
         <div data-role="page" id="page1">
             <div data-theme="b" data-role="header">
                 <h1 class="header">
@@ -25,7 +34,7 @@
                 <h2>
                     Localização
                 </h2>
-                <img src="https://maps.googleapis.com/maps/api/staticmap?center=-16.7193978, -49.2668751&amp;zoom=15&amp;size=288x200&amp;markers=Ipecon,GO&amp;sensor=false" width="288" height="200" />
+                <img src="https://maps.googleapis.com/maps/api/staticmap?center=-16.7193978, -49.2668751&amp;zoom=15&amp;size=288x200&amp;markers=Ipecon,GO&amp;sensor=false" width="<?php echo $largura ?>" height="<?php echo $altura ?>" />
             </div>
             <p>
                 Av. T-4, nº 1478, Edf. Absolut Business Style, Sala A-132 (13º andar)<br>
