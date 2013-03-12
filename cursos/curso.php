@@ -18,9 +18,12 @@ $gcinfo = new Gcinfo();
 
 // Cursos
 // consultarMaterias -> $_codgConsulta, $_codgMateria = NULL, $_codgEditoria = NULL, $_website = NULL
-$gcinfo->consultarMaterias(2,$_REQUEST['idMateria'],NULL,website);
-$curso = $conexao->retornaObj();
-$numRegistros = $conexao->numRows();
+$sql = $gcinfo->consultarMaterias(2,$_REQUEST['idMateria'],NULL,website,'P');
+$conexao->executaConsulta($sql);
+$curso = $conexao->retornaArray();
+// echo "<pre>";
+// print_r($curso);
+// echo "</pre>";
 
 ?>
 <!DOCTYPE html>
@@ -52,11 +55,7 @@ $numRegistros = $conexao->numRows();
                 </h2>
                 <p>
                     <?php
-                    if($numRegistros > 0){
-                        echo stripslashes($curso->info_completa);
-                    }else{
-                        echo "<span>Conteúdo do curso não cadastrado.</span>";
-                    }
+                        echo stripslashes($curso['info_completa']);
                     ?>
                 </p>
                 <a data-role="button" data-inline="true" data-rel="back" data-theme="e" href="#page1">
