@@ -6,9 +6,8 @@ $message = $_REQUEST['txtMensagem'];
 
 $headers  = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-//$headers .= 'To: IPECON - Ensino e consultoria <ipecon@ipecon.com.br>' . "\r\n";
-$headers .= 'To: Regis Andrade <regisandrade@gmail.com>' . "\r\n";
 $headers .= 'From: '.$_REQUEST['txtEmail'].' <'.$_REQUEST['txtEmail'].'>' . "\r\n";
+$headers .= 'Reply-To: '.$_REQUEST['txtEmail'].' <'.$_REQUEST['txtEmail'].'>' . "\r\n";
 
 if(!mail($to, $subject, $message, $headers)){
 	$var['msg'] = "Erro no envio do e-mail.";
@@ -18,5 +17,5 @@ if(!mail($to, $subject, $message, $headers)){
 	$var['msg'] = "E-mail enviado com sucesso.";
 	$var['sucesso'] = true;
 }
-return json_encode($var);
+echo json_encode($var);
 ?>
