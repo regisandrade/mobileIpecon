@@ -5,12 +5,12 @@ define("urlImagens", "http://www.gcinfo.com.br/arquivos/fotos/");
 define("urlGalerias", "http://www.gcinfo.com.br/arquivos/galeriaFotos/");
 
 /** CLASSE DE CONEXAO E OUTRAS FUNCIONALIDADES **/
-require_once('../class/BDMySQL.class.php');
+require_once('../../class/BDMySQL.class.php');
 $conexao = new BDMySQL();
 $conexao->conectar();
 
 /** CLASSE DE NEGOCIO E PERSISTENCIA GCINFO **/
-require_once("../class/gcinfo.class.php");
+require_once("../../class/gcinfo.class.php");
 $gcinfo = new Gcinfo();
 
 // Empresa
