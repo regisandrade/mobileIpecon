@@ -18,14 +18,14 @@
         <div data-role="page" id="page1">
             <div data-theme="b" data-role="header">
                 <h1 class="header">
-                    <img src="http://ipecon.com.br/imagens/marcaBoleto.jpg" border="0" />
+                    IPECON
                 </h1>
             </div>
             <div data-role="content">
                 <h2>
                     Contato
                 </h2>
-                <form action="" method="POST">
+                <form action="" method="POST" id="formContato">
                     <div data-role="fieldcontain">
                         <fieldset data-role="controlgroup">
                             <input name="txtEmail" id="txtEmail" value="" type="text" placeholder="E-mail" />
@@ -41,7 +41,10 @@
                             <textarea name="txtMensagem" id="txtMensagem" placeholder="Mensagem"></textarea>
                         </fieldset>
                     </div>
-                    <input type="submit" data-inline="true" data-theme="b" data-icon="check" data-iconpos="left" value="Enviar" />
+                    
+                    <a data-role="button" data-inline="true" data-rel="left" data-theme="b" onClick="enviarEmail()">
+                        Enviar
+                    </a>
                     <a data-role="button" data-inline="true" data-rel="back" data-theme="e" href="#page1">
                         Voltar
                     </a>
