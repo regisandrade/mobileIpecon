@@ -26,7 +26,7 @@ class BDMySQL 	{
 	*/
 	function conectar(){
 		/** Conexão de produção **/
-		$this->hostname		=	'gcinfo.com.br';
+		$this->hostname		=	'50.22.37.199';
 		$this->usuario		=	'control1_ugcinfo';
 		$this->senha		=	'tre147!!';
 		$this->bancoDeDados	=	'control1_gcinfo';
