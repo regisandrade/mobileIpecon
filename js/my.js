@@ -32,7 +32,7 @@ function enviarEmail(){
 	$.ajax({
 		type     : 'POST',
 		dataType : 'JSON',
-		url      : 'enviarEmail.php',
+		url      : 'http://www.m.ipecon.com.br/enviarEmail.php',
 		data     : dados,
 		success  : function(ret){
 			if(ret.sucesso == 'true') {
@@ -50,7 +50,7 @@ function initialize(id) {
     $.ajax({
         type     : 'POST',
         dataType : 'JSON',
-        url      : 'http://m.ipecon.com.br/webserviceGCInfo/webServiceGcInfo.php',
+        url      : 'http://www.m.ipecon.com.br/webserviceGCInfo/webServiceGcInfo.php',
         data     : param,
         success  : function(retorno){
             $('#textoInfoCompleta').html(retorno.info_completa);
