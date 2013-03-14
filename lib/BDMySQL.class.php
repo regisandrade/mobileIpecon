@@ -26,9 +26,6 @@ class BDMySQL 	{
 	*/
 	function conectar(){
 		/** Conexão de produção **/
-		//$this->hostname		=	'controleseunegocio.com.br';
-		//$this->hostname		=	'74.52.52.43';
-		//$this->hostname		=	'lantash.webhost.com.br';
 		$this->hostname		=	'gcinfo.com.br';
 		$this->usuario		=	'control1_ugcinfo';
 		$this->senha		=	'tre147!!';
