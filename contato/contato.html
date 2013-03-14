@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>IPECON Pós-Graduação</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <title>IPECON Pós-Graduação</title>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />        
 
-        <link rel="stylesheet" href="../css/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
         <link rel="stylesheet" href="../css/my.css" />
         
-        <script src="../js/jquery-1.7.2.min.js"></script>
-        <script src="../js/jquery.mobile-1.2.0.min.js"></script>
+        <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
         <script src="../js/my.js"></script>
     </head>
     <body>
@@ -28,17 +28,17 @@
                 <form action="" method="POST" id="formContato">
                     <div data-role="fieldcontain">
                         <fieldset data-role="controlgroup">
-                            <input name="txtEmail" id="txtEmail" value="" type="text" placeholder="E-mail" />
+                            <input name="txtEmail" id="txtEmail" value="" type="email" placeholder="E-mail" autofocus required />
                         </fieldset>
                     </div>
                     <div data-role="fieldcontain">
                         <fieldset data-role="controlgroup">
-                            <input name="txtAssunto" id="txtAssunto" value="" type="text" placeholder="Assunto" />
+                            <input name="txtAssunto" id="txtAssunto" value="" type="text" placeholder="Assunto" required />
                         </fieldset>
                     </div>
                     <div data-role="fieldcontain">
                         <fieldset data-role="controlgroup">
-                            <textarea name="txtMensagem" id="txtMensagem" placeholder="Mensagem"></textarea>
+                            <textarea name="txtMensagem" id="txtMensagem" placeholder="Mensagem" required></textarea>
                         </fieldset>
                     </div>
  
