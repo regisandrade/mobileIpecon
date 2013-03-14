@@ -58,7 +58,3 @@ function initialize(id) {
         }
     });
 }
-
-function chamarPagina(id){
-	window.location = "http://m.ipecon.com.br/cursos/curso.php?idMateria="+id;
-}
