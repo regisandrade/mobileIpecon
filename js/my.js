@@ -23,3 +23,21 @@ function enviarEmail(){
 		}
 	});
 }
+
+function initialize(id) {
+    var param = "idMateria="+id;
+    $.ajax({
+        type     : 'POST',
+        dataType : 'JSON',
+        url      : 'http://m.ipecon.com.br/webserviceGCInfo/webServiceGcInfo.php',
+        data     : param,
+        success  : function(retorno){
+            $('#textoInfoCompleta').html(retorno.info_completa);
+            //$('#textoEmpresa').html(retorno.info_completa);
+        }
+    });
+}
+
+function chamarPagina(id){
+	window.location = "curso.php?idMateria="+id;
+}
