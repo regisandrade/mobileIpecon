@@ -9,12 +9,12 @@ define("urlImagens", "http://www.gcinfo.com.br/arquivos/fotos/");
 define("urlGalerias", "http://www.gcinfo.com.br/arquivos/galeriaFotos/");
 
 /** CLASSE DE CONEXAO E OUTRAS FUNCIONALIDADES **/
-require_once('http://www.m.ipecon.com.br/lib/BDMySQL.class.php');
+require_once('../lib/BDMySQL.class.php');
 $conexao = new BDMySQL();
 $conexao->conectar();
 
 /** CLASSE DE NEGOCIO E PERSISTENCIA GCINFO **/
-require_once("http://www.m.ipecon.com.br/lib/gcinfo.class.php");
+require_once("../lib/gcinfo.class.php");
 $gcinfo = new Gcinfo();
 
 $gcinfo->listarMaterias(2,$_POST['idMateria'],null,website,"P");
