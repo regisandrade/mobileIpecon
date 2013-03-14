@@ -1,24 +1,3 @@
-<?php
-/** DEFINIR A CONSTANTES DO SITE **/
-define("website", 7); // Código do Website na tabela website
-define("urlImagens", "http://www.gcinfo.com.br/arquivos/fotos/");
-define("urlGalerias", "http://www.gcinfo.com.br/arquivos/galeriaFotos/");
-
-/** CLASSE DE CONEXAO E OUTRAS FUNCIONALIDADES **/
-require_once('../lib/BDMySQL.class.php');
-$conexao = new BDMySQL();
-$conexao->conectar();
-
-/** CLASSE DE NEGOCIO E PERSISTENCIA GCINFO **/
-require_once("../lib/gcinfo.class.php");
-$gcinfo = new Gcinfo();
-
-// Empresa
-$gcinfo->listarMaterias(1,null,27,website,"P",1);
-$dados = $conexao->retornaArray();
-$textoEmpresa = stripslashes($dados['info_completa']);
-
-?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,7 +14,7 @@ $textoEmpresa = stripslashes($dados['info_completa']);
         <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
         <script src="../js/my.js"></script>
     </head>
-    <body>
+    <body onLoad="initialize(_GET('idMateria'))">
         <div data-role="page" id="page1">
             <div data-theme="b" data-role="header">
                 <h1 class="header">
@@ -43,11 +22,8 @@ $textoEmpresa = stripslashes($dados['info_completa']);
                 </h1>
             </div>
             <div data-role="content">
-                <h2>
-                    Empresa
-                </h2>
                 <p>
-                    <?php echo $textoEmpresa; ?>
+                    <span id="textoInfoCompleta"></span>
                 </p>
                 <a data-role="button" data-inline="true" data-rel="back" data-theme="e" href="#page1">
                     Voltar
