@@ -1,13 +1,8 @@
 // Put your custom code here
-$(document).ready(function() {
-	$('#btnEnviarEmail').live('click',function(){
+$(document).ready(function(){
+	$('#btnEnviarEmail').click( function() {
 		enviarEmail();
 	});
-});
-
-$(document).delegate("#pagCurso","#pagEmpresa","pagecreate",function() {
-	$.mobile.loadingMessage = "Carregando...";
-	$.mobile.pageLoadErrorMessage = "Erro ao carregar a página...";
 });
 
 /**
@@ -37,14 +32,18 @@ function enviarEmail(){
 	$.ajax({
 		type     : 'POST',
 		dataType : 'JSON',
-		url      : 'enviarEmail.php',
+		url      : 'http://m.ipecon.com.br/contato/enviarEmail.php',
 		data     : dados,
-		success  : function(ret){
-			if(ret.sucesso == 'true') {
-				alert(ret.msg);
+		success  : function(retorno){
+			console.log(retorno);
+			if(retorno.sucesso == 'true') {
+				alert(retorno.msg);
+				$('txtEmail').val() = "";
+				$('txtAssunto').val() = "";
+				$('txtMensagem').val() = "";
 				history.back(-1);
 			}else{
-				alert(ret.msg);
+				alert(retorno.msg);
 			}
 		}
 	});
