@@ -14,9 +14,10 @@
         <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
         <script src="../js/my.js"></script>
     </head>
-    <body onLoad="initialize(_GET('idMateria'))">
-        <div data-role="page" id="page1">
+    <body>
+        <div data-role="page" id="pagCurso">
             <div data-theme="b" data-role="header">
+                <a href="../index.html" data-icone="home">Home</a>
                 <h1 class="header">
                     IPECON
                 </h1>
@@ -36,5 +37,8 @@
                 </h1>
             </div>
         </div>
+        <script>
+            initialize();
+        </script>
     </body>
 </html>

@@ -5,6 +5,11 @@ $(document).ready(function() {
 	});
 });
 
+$(document).delegate("#pagCurso","#pagEmpresa","pagecreate",function() {
+	$.mobile.loadingMessage = "Carregando...";
+	$.mobile.pageLoadErrorMessage = "Erro ao carregar a página...";
+});
+
 /**
  * Created by: http://gustavopaes.net
  * Created on: Nov/2009
@@ -45,8 +50,8 @@ function enviarEmail(){
 	});
 }
 
-function initialize(id) {
-    var param = "idMateria="+id;
+function initialize() {
+    var param = "idMateria="+_GET('idMateria');
     $.ajax({
         type     : 'POST',
         dataType : 'JSON',
