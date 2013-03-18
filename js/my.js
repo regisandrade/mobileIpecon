@@ -32,7 +32,11 @@ function enviarEmail(){
 	$.ajax({
 		type     : 'POST',
 		dataType : 'JSON',
+<<<<<<< HEAD
 		url      : 'http://m.ipecon.com.br/contato/enviarEmail.php',
+=======
+		url      : 'http://www.m.ipecon.com.br/enviarEmail.php',
+>>>>>>> 5696ccac16685eaf257d246fedcf566fc77db367
 		data     : dados,
 		success  : function(retorno){
 			console.log(retorno);
@@ -54,7 +58,7 @@ function initialize() {
     $.ajax({
         type     : 'POST',
         dataType : 'JSON',
-        url      : 'http://m.ipecon.com.br/webserviceGCInfo/webServiceGcInfo.php',
+        url      : 'http://www.m.ipecon.com.br/webserviceGCInfo/webServiceGcInfo.php',
         data     : param,
         success  : function(retorno){
             $('#textoInfoCompleta').html(retorno.info_completa);
