@@ -32,11 +32,7 @@ function enviarEmail(){
 	$.ajax({
 		type     : 'POST',
 		dataType : 'JSON',
-<<<<<<< HEAD
-		url      : 'http://m.ipecon.com.br/contato/enviarEmail.php',
-=======
 		url      : 'http://www.m.ipecon.com.br/enviarEmail.php',
->>>>>>> 5696ccac16685eaf257d246fedcf566fc77db367
 		data     : dados,
 		success  : function(retorno){
 			console.log(retorno);
