@@ -1,6 +1,6 @@
 // Put your custom code here
 $(document).ready(function(){
-	$('#btnEnviarEmail').click( function() {
+	$('#btnEnviarEmail').click(function() {
 		enviarEmail();
 	});
 });
@@ -35,9 +35,7 @@ function enviarEmail(){
 		url      : 'http://www.m.ipecon.com.br/enviarEmail.php',
 		data     : dados,
 		success  : function(retorno){
-			console.log(retorno);
 			if(retorno.sucesso == 'true') {
-				alert(retorno.msg);
 				$('txtEmail').val() = "";
 				$('txtAssunto').val() = "";
 				$('txtMensagem').val() = "";
