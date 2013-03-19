@@ -1,5 +1,12 @@
 // Put your custom code here
+
+// unblock when ajax activity stops 
+$(document).ajaxStop($.unblockUI); 
+
 $(document).ready(function(){
+    $.blockUI({ message: '<h2><img src="../imagens/ajax-loader.gif" /><br>Carregando...</h2>' });
+
+	// Enviar e-mail
 	$('#btnEnviarEmail').click(function() {
 		enviarEmail();
 	});
@@ -52,8 +59,9 @@ function initialize() {
     $.ajax({
         type     : 'POST',
         dataType : 'JSON',
-        url      : 'http://www.m.ipecon.com.br/webserviceGCInfo/webServiceGcInfo.php',
+        url      : 'http://m.ipecon.com.br/webserviceGCInfo/webServiceGcInfo.php',
         data     : param,
+        cache    : false,
         success  : function(retorno){
             $('#textoInfoCompleta').html(retorno.info_completa);
             //$('#textoEmpresa').html(retorno.info_completa);
