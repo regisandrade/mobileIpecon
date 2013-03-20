@@ -39,7 +39,7 @@ function enviarEmail(){
 	$.ajax({
 		type     : 'POST',
 		dataType : 'JSON',
-		url      : 'http://www.m.ipecon.com.br/enviarEmail.php',
+		url      : 'http://m.ipecon.com.br/enviarEmail.php',
 		data     : dados,
 		success  : function(retorno){
 			if(retorno.sucesso == 'true') {
