@@ -71,10 +71,10 @@ function enviarEmail(){
 				$('txtEmail').val('');
 				$('txtAssunto').val('');
 				$('txtMensagem').val('');
-				//history.back(-1);
-				alertaMobile('#pageContato',retorno.msg);
+				alert(retorno.msg);
+				history.back(-1);				
 			}else{
-				alertaMobile('#pageContato',retorno.msg);
+				alert(retorno.msg);
 			}
 		}
 	});
