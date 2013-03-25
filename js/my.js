@@ -21,7 +21,7 @@ function loading(txt){
             '-moz-border-radius': '10px', 
             opacity: .5, 
             color: '#fff',
-            width: '25%'
+            width: '50%'
         } });
 }
 
