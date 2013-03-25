@@ -8,10 +8,31 @@ $(document).ready(function(){
 	$('#btnEnviarEmail').click(function() {
 		enviarEmail();
 	});
-
-	$.blockUI({ message: '<h2><img src="../imagens/ajax-loader.gif" /><br>Carregando...</h2>' });
 });
 
+function loading(txt){
+	$.blockUI({ 
+		message: '<h2>'+txt+'</h2>',
+		css: { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .5, 
+            color: '#fff',
+            width: '15%'
+        } });
+}
+
+function alertBlokUi(titulo,mensagem){
+	$.blockUI({ 
+            theme:     true, 
+            title:    titulo, 
+            message:  '<p>'+mensagem+'</p>', 
+            timeout:   2500 
+        });
+}
 /**
  * Created by: http://gustavopaes.net
  * Created on: Nov/2009
@@ -61,6 +82,7 @@ function alertaMobile(seletor,msg){
 
 function enviarEmail(){
 	var dados = $('#formContato').serialize();
+	loading("Enviando...");
 	$.ajax({
 		type     : 'POST',
 		dataType : 'JSON',
@@ -68,13 +90,14 @@ function enviarEmail(){
 		data     : dados,
 		success  : function(retorno){
 			if(retorno.sucesso == 'true') {
-				$('txtEmail').val('');
-				$('txtAssunto').val('');
-				$('txtMensagem').val('');
-				alert(retorno.msg);
-				history.back(-1);				
+				$('#txtEmail').val('');
+				$('#txtAssunto').val('');
+				$('#txtMensagem').val('');
+				//alert(retorno.msg);
+				//history.back(-1);
+				alertBlokUi('Alerta',retorno.msg);
 			}else{
-				alert(retorno.msg);
+				alertBlokUi('Alerta',retorno.msg);
 			}
 		}
 	});
@@ -82,6 +105,7 @@ function enviarEmail(){
 
 function initialize() {
     var param = "idMateria="+_GET('idMateria');
+	loading("Carregando...");
     $.ajax({
         type     : 'POST',
         dataType : 'JSON',
