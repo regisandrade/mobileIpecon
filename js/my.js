@@ -15,13 +15,13 @@ function loading(txt){
 		message: '<h2>'+txt+'</h2>',
 		css: { 
             border: 'none', 
-            padding: '12px', 
+            padding: '10px', 
             backgroundColor: '#000', 
             '-webkit-border-radius': '10px', 
             '-moz-border-radius': '10px', 
             opacity: .5, 
             color: '#fff',
-            width: '22%'
+            width: '25%'
         } });
 }
 
