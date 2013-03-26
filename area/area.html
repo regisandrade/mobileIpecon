@@ -12,12 +12,16 @@
         
         <script src="../js/jquery-1.9.1.min.js"></script>
         <script src="../js/jquery.mobile-1.3.0.min.js"></script>
+        <script src="../js/jquery.blockUI.js"></script>
         <script src="../js/my.js"></script>
     </head>
     <body>
         <div data-role="page" id="pagArea">
             <div data-theme="b" data-role="header">
-                <h3 class="header">
+                <a data-role="button" data-icon="home" href="../index.html" class="ui-btn-left">
+                    Home
+                </a>
+                <h3>
                     IPECON
                 </h3>
             </div>
@@ -25,9 +29,24 @@
                 <h2>
                     Área do aluno
                 </h2>
-                <a data-role="button" data-inline="true" data-icon="back" data-rel="back" data-theme="e" href="../index.html">
-                    Voltar
-                </a>
+                <form action="" method="POST" id="formAreaAluno">
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup">
+                            <input name="txtLogin" id="txtLogin" value="" type="email" placeholder="E-mail ou Login" autofocus required />
+                        </fieldset>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup">
+                            <input name="txtSenha" id="txtSenha" value="" type="password" placeholder="Senha" required />
+                        </fieldset>
+                    </div>
+                    <a data-role="button" data-inline="true" data-theme="e" data-icon="back" data-rel="back" href="../index.html">
+                        Voltar
+                    </a>
+                    <a data-role="button" data-inline="true" data-theme="b" data-icon="check" data-iconpos="right" id="btnEntrarAreaAluno">
+                        Entrar
+                    </a>
+                </form>
             </div>
             <div data-theme="b" data-role="footer" data-position="fixed">
                 <h1 class="footer">
