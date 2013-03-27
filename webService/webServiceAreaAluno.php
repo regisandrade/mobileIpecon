@@ -31,9 +31,9 @@ class webServiceAreaAluno extends database {
 			}else{
 				
 				$registro = $rs->fetch(PDO::FETCH_OBJ) or die(print_r($query->errorInfo(), true));
-				//if(is_array($registro)){
+				if(is_array($registro)){
 					$registro = current($registro);
-				//}
+				}
 				$resposta['dados']['nome']      = $registro->Nome;
 				$resposta['dados']['id_numero'] = $registro->Id_Numero;
 				$resposta['dados']['eMail']     = $registro->e_Mail ? $registro->e_Mail : 'E-mail não cadastrado.';
