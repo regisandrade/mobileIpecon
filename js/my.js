@@ -8,6 +8,11 @@ $(document).ready(function(){
 	$('#btnEnviarEmail').click(function() {
 		enviarEmail();
 	});
+
+	// Entrar na área do aluno
+	$('#btnEntrarAreaAluno').click(function() {
+		entrarAreaAluno();
+	});
 });
 
 function loading(txt){
@@ -109,12 +114,29 @@ function initialize() {
     $.ajax({
         type     : 'POST',
         dataType : 'JSON',
-        url      : 'http://m.ipecon.com.br/webserviceGCInfo/webServiceGcInfo.php',
+        url      : 'http://m.ipecon.com.br/webService/webServiceGcInfo.php',
         data     : param,
         cache    : false,
         success  : function(retorno){
             $('#textoInfoCompleta').html(retorno.info_completa);
             //$('#textoEmpresa').html(retorno.info_completa);
+        }
+    });
+}
+
+function entrarAreaAluno(){
+	var dados = $("#formLoginAreaAluno").serialize();
+	loading("Entrando...");
+    $.ajax({
+        type     : 'POST',
+        dataType : 'JSON',
+        url      : 'http://localhost/mobileIpecon/webService/webServiceAreaAluno.php',
+        data     : dados,
+        cache    : false,
+        success  : function(retorno){
+            console.log(retorno);
+            //window.location = retorno.caminho;
+            return false;
         }
     });
 }
