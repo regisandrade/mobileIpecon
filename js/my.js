@@ -130,21 +130,12 @@ function entrarAreaAluno(){
     $.ajax({
         type     : 'POST',
         dataType : 'JSON',
-<<<<<<< HEAD
-        url      : 'http://localhost/mobileIpecon/webService/webServiceAreaAluno.php',
+        url      : 'http://m.ipecon.com.br/webService/clientWebServiceAreaAluno.php',
         data     : dados,
         cache    : false,
         success  : function(retorno){
             console.log(retorno);
             //window.location = retorno.caminho;
-=======
-        url      : 'http://m.ipecon.com.br/webService/webServiceAreaAluno.php',
-        data     : dados,
-        cache    : false,
-        success  : function(retorno){
-            //console.log(retorno);
-            window.location = retorno.caminho;
->>>>>>> master
             return false;
         }
     });
