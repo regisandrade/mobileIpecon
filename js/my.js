@@ -134,9 +134,110 @@ function entrarAreaAluno(){
         data     : dados,
         cache    : false,
         success  : function(retorno){
-            console.log(retorno);
-            //window.location = retorno.caminho;
+            //console.log(retorno);
+            if(retorno.sucesso){
+            	window.location = retorno.caminho;
+            }else{
+            	alert('Erro na requisição');
+            }
             return false;
+        }
+    });
+}
+
+function carregandoNotasFrequencia() {
+    var param = "idPagina=4";
+	loading("Carregando...");
+    $.ajax({
+        type     : 'POST',
+        dataType : 'JSON',
+        url      : 'http://m.ipecon.com.br/webService/clientWebServiceAreaAluno.php',
+        data     : param,
+        cache    : false,
+        success  : function(retorno){
+            //console.log(retorno);            
+            //var retorno;
+            reTela = '<div class="ui-grid-b"><div class="ui-block-a">'
+                    + '<strong>Disciplina</strong>'
+                    + '</div>'
+                    + '<div class="ui-block-b">'
+                    + '<strong>Nota</strong>'
+                    + '</div>'
+                    + '<div class="ui-block-c">'
+                    + '<strong>Frequencia</strong>'
+                    + '</div>';
+            $.each(retorno.valor, function(index, value) {
+            	//alert(index + ': ' + value.disciplina);
+				reTela += '<div class="ui-block-a">'
+						+ '<i>'+value.disciplina+'</i>'
+						+ '</div>'
+						+ '<div class="ui-block-b">'
+						+ '<i>'+value.nota+'</i>'
+						+ '</div>'
+						+ '<div class="ui-block-c">'
+						+ '<i>'+value.frequencia+'</i>'
+						+ '</div>';
+			});
+			reTela += "</div>";
+            $('#nomeTurma').after(reTela);
+            $('#nomeTurma').html("Turma: "+retorno.nomeTurma);
+        }
+    });
+}
+
+function carregandoCronograma() {
+    var param = "idPagina=3";
+	loading("Carregando...");
+    $.ajax({
+        type     : 'POST',
+        dataType : 'JSON',
+        url      : 'http://m.ipecon.com.br/webService/clientWebServiceAreaAluno.php',
+        data     : param,
+        cache    : false,
+        success  : function(retorno){
+            console.log(retorno);            
+            //var retorno;
+            reTela = '<div class="ui-grid-b"><div class="ui-block-a">'
+                    + '<strong>Disciplina</strong>'
+                    + '</div>'
+                    + '<div class="ui-block-b">'
+                    + '<strong>Nota</strong>'
+                    + '</div>'
+                    + '<div class="ui-block-c">'
+                    + '<strong>Frequencia</strong>'
+                    + '</div>';
+            $.each(retorno.valor, function(index, value) {
+            	//alert(index + ': ' + value.disciplina);
+				reTela += '<div class="ui-block-a">'
+						+ value.disciplina
+						+ '</div>'
+						+ '<div class="ui-block-b">'
+						+ value.nota
+						+ '</div>'
+						+ '<div class="ui-block-c">'
+						+ value.frequencia
+						+ '</div>';
+			});
+			reTela += "</div>";
+            $('#nomeTurma').after(reTela);
+            $('#nomeTurma').html("Turma: "+retorno.nomeTurma);
+        }
+    });
+}
+
+function carregandoAvisos() {
+    var param = "idPagina=2";
+	loading("Carregando...");
+    $.ajax({
+        type     : 'POST',
+        dataType : 'JSON',
+        url      : 'http://m.ipecon.com.br/webService/clientWebServiceAreaAluno.php',
+        data     : param,
+        cache    : false,
+        success  : function(retorno){
+            console.log(retorno);            
+            //var retorno;
+            $('#tituloAviso').after(retorno.valor);
         }
     });
 }

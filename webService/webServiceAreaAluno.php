@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include_once('../lib/database.class.php');
 
 class webServiceAreaAluno extends database {
@@ -40,6 +42,19 @@ class webServiceAreaAluno extends database {
 				$resposta['msgResposta'] = "Entrou";
 				$resposta['caminho']     = "homeAreaAluno.html";
 				$resposta['sucesso']     = true;
+
+				// Buscar as turmas do aluno
+				$sql   = "SELECT Turma FROM alunos_academicos WHERE Aluno = ? GROUP BY Turma ORDER BY Ano";
+				$rs    = $this->conectar()->prepare($sql);
+				$count = $rs->execute(array($registro->Id_Numero));
+				while ($registro = $rs->fetch(PDO::FETCH_OBJ)) {
+					$arrTurmas[] = $registro['Turma'];
+				}
+
+				// Sessão
+				$_SESSION['NOME'] = $registro->Nome;
+				$_SESSION['ID_NUMERO_ALUNO'] = $registro->Id_Numero;
+				$_SESSION['TURMAS'] = $arrTurmas;
 			}
 			$this->desconectar();
 			echo json_encode($resposta);
@@ -54,7 +69,7 @@ class webServiceAreaAluno extends database {
 	function listarNotasFrequenciasAluno(){
 		try {
 			$sql = "SELECT
-					       DISTINCT AC.Turma
+					       CONCAT(TUR.TURMA,' - ',TUR.NOME) AS NomeTurma
 					      ,DIS.Nome AS NomeDisciplina
 					      ,AC.Nota
 					      ,AC.Frequencia
@@ -62,37 +77,98 @@ class webServiceAreaAluno extends database {
 					       alunos_academicos AC
 					INNER JOIN disciplina    DIS ON
 					       DIS.Codg_Disciplina = AC.Disciplina
+					INNER JOIN turma TUR ON
+       				       TUR.TURMA = AC.TURMA
 					WHERE
 					       AC.Aluno  = ?
 					   AND AC.Nota  <> 0
+					GROUP BY
+					       NomeTurma, NomeDisciplina
 					ORDER BY
 					       DIS.Nome";
 			$rs    = $this->conectar()->prepare($sql);
-			$count = $rs->execute(array($parametros['idNumeroAluno']));
+			$count = $rs->execute(array($_SESSION['ID_NUMERO_ALUNO']));
 
 			if($count === false){
 				$resposta['msgResposta'] = "Nenhum registro encontrado.";
 				$resposta['caminho']     = "";
 				$resposta['sucesso']     = false;
 			}else{
-				//$registro = $rs->fetch(PDO::FETCH_OBJ) or die(print_r($query->errorInfo(), true));
-				// if(is_array($registro)){
-				// 	$registro = current($registro);
-				// }
-				var $valor = null;
+				$valor = null;
+				$volta = 0;
 				while ($registro = $rs->fetch(PDO::FETCH_OBJ)) {
-					$valor = "<div class=\"ui-block-a\">";
-					<div class="ui-block-a">
-                        [nome]
-                    </div>
-                    <div class="ui-block-b">
-                        [nota]
-                    </div>
-                    <div class="ui-block-c">
-                        [frequencia]
-                    </div>	
+					if($volta == 0){
+						$turma = $registro->NomeTurma;
+					}
+					$valor[$volta] = array('disciplina' => utf8_encode($registro->NomeDisciplina),
+															 'nota'       => $registro->Nota,
+															 'frequencia' => $registro->Frequencia );
+					$volta++;
 				}
-				$resposta['valor']   = '';
+				$resposta['valor']     = $valor;
+				$resposta['nomeTurma'] = $turma;
+				$resposta['sucesso']   = true;
+			}
+			$this->desconectar();
+			echo json_encode($resposta);
+		} catch (Exception $e) {
+			$resposta['msgResposta'] = $e->getMessage();
+			$resposta['sucesso']     = false;
+			$this->desconectar();
+			echo json_encode($resposta);
+		}
+	}
+
+	function listarCronograma(){
+		try {
+			$sql = "SELECT DISTINCT
+					       CRO.Id_Numero
+					      ,CRO.Turma
+					      ,TUR.Nome AS NomeTurma
+					      ,CRO.Disciplina AS CodgDisciplina
+					      ,DISC.Nome AS Disciplina
+					      ,DATE_FORMAT(Data_01,'%d/%m/%Y') AS Data_01
+					      ,DATE_FORMAT(Data_02,'%d/%m/%Y') AS Data_02
+					      ,DATE_FORMAT(Data_03,'%d/%m/%Y') AS Data_03
+					      ,DATE_FORMAT(Data_04,'%d/%m/%Y') AS Data_04
+					      ,DATE_FORMAT(Data_05,'%d/%m/%Y') AS Data_05
+					      ,DATE_FORMAT(Data_06,'%d/%m/%Y') AS Data_06
+					FROM
+					       cronograma CRO
+					INNER JOIN turma TUR ON
+					       TUR.Turma = CRO.Turma
+					INNER JOIN disciplina DISC ON
+					       DISC.Codg_Disciplina = CRO.Disciplina
+					WHERE 
+					       CRO.Id_Numero > 0
+					   and CRO.Turma IN (?)
+					ORDER BY
+					       TUR.Nome, CRO.Data_01, CRO.Data_02, CRO.Data_03, CRO.Data_04, CRO.Data_05, CRO.Data_06 DESC";
+			$rs    = $this->conectar()->prepare($sql);
+			$count = $rs->execute(array($_SESSION['TURMAS']));
+
+			if($count === false){
+				$resposta['msgResposta'] = "Nenhum registro encontrado.";
+				$resposta['caminho']     = "";
+				$resposta['sucesso']     = false;
+			}else{
+				$valor = null;
+				$volta = 0;
+				while ($registro = $rs->fetch(PDO::FETCH_OBJ)) {
+					if($volta == 0){
+						$nomeTurma = $registro->Turma.' - '.$registro->NomeTurma;
+					}
+					$valor[$volta] = array('disciplina' => utf8_encode($registro->Disciplina),
+										   'Data_01'    => $registro->Data_01,
+										   'Data_02'    => $registro->Data_02,
+										   'Data_03'    => $registro->Data_03,
+										   'Data_04'    => $registro->Data_04,
+										   'Data_05'    => $registro->Data_05,
+										   'Data_06'    => $registro->Data_06 );
+					$volta++;
+				}
+				$resposta['valor']   = $valor;
+				$resposta['nomeTurma']   = $nomeTurma;
 				$resposta['sucesso'] = true;
 			}
 			$this->desconectar();
@@ -104,5 +180,49 @@ class webServiceAreaAluno extends database {
 			echo json_encode($resposta);
 		}
 	}
-	
+
+	function listarAvisos(){
+		try {
+			$sql = "SELECT
+					       Codg_Aviso
+					      ,Titulo
+					      ,Descricao
+					FROM
+					       aviso
+					ORDER BY
+					       Data_Cadastro DESC
+					LIMIT 5";
+			$rs    = $this->conectar()->prepare($sql);
+			$count = $rs->execute();
+
+			if($count === false){
+				$resposta['msgResposta'] = "Nenhum registro encontrado.";
+				$resposta['caminho']     = "";
+				$resposta['sucesso']     = false;
+			}else{
+				$volta = 0;
+				$valor = "\n\t<div data-role=\"collapsible-set\">\n";
+				while ($registro = $rs->fetch(PDO::FETCH_OBJ)) {
+					$valor .= "<div data-role=\"collapsible\" data-collapsed=\"false\">";
+                    $valor .= "    <h3>";
+                    $valor .= utf8_encode($registro->Titulo);
+                    $valor .= "    </h3>";
+                    $valor .= "    <p>".utf8_encode($registro->Descricao)."</p>";
+                    $valor .= "</div>";
+					$volta++;
+				}
+				$valor .= "\n\t<\div>\n";
+				$resposta['valor']   = $valor;
+				$resposta['sucesso'] = true;
+			}
+			$this->desconectar();
+			echo json_encode($resposta);
+		} catch (Exception $e) {
+			$resposta['msgResposta'] = $e->getMessage();
+			$resposta['sucesso']     = false;
+			$this->desconectar();
+			echo json_encode($resposta);
+		}
+	}
+
 }
