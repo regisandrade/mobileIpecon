@@ -155,32 +155,32 @@ function carregandoNotasFrequencia() {
         data     : param,
         cache    : false,
         success  : function(retorno){
-            //console.log(retorno);            
+            console.log(retorno);            
             //var retorno;
-            reTela = '<div class="ui-grid-b"><div class="ui-block-a">'
+            reTela = '<div class="ui-grid-c"><div class="ui-block-a larguraDisciplina">'
                     + '<strong>Disciplina</strong>'
                     + '</div>'
-                    + '<div class="ui-block-b">'
+                    + '<div class="ui-block-b larguraNota">'
                     + '<strong>Nota</strong>'
                     + '</div>'
-                    + '<div class="ui-block-c">'
-                    + '<strong>Frequencia</strong>'
+                    + '<div class="ui-block-c larguraFrequencia">'
+                    + '<strong>Frequência</strong>'
                     + '</div>';
             $.each(retorno.valor, function(index, value) {
             	//alert(index + ': ' + value.disciplina);
-				reTela += '<div class="ui-block-a">'
+				reTela += '<div class="ui-block-a larguraDisciplina">'
 						+ '<i>'+value.disciplina+'</i>'
 						+ '</div>'
-						+ '<div class="ui-block-b">'
+						+ '<div class="ui-block-b larguraNota">'
 						+ '<i>'+value.nota+'</i>'
 						+ '</div>'
-						+ '<div class="ui-block-c">'
+						+ '<div class="ui-block-c larguraFrequencia">'
 						+ '<i>'+value.frequencia+'</i>'
 						+ '</div>';
 			});
 			reTela += "</div>";
             $('#nomeTurma').after(reTela);
-            $('#nomeTurma').html("Turma: "+retorno.nomeTurma);
+            $('.ui-collapsible .ui-btn-text').html("Turma: "+retorno.nomeTurma);
         }
     });
 }
@@ -195,32 +195,23 @@ function carregandoCronograma() {
         data     : param,
         cache    : false,
         success  : function(retorno){
-            console.log(retorno);            
             //var retorno;
-            reTela = '<div class="ui-grid-b"><div class="ui-block-a">'
-                    + '<strong>Disciplina</strong>'
-                    + '</div>'
-                    + '<div class="ui-block-b">'
-                    + '<strong>Nota</strong>'
-                    + '</div>'
-                    + '<div class="ui-block-c">'
-                    + '<strong>Frequencia</strong>'
-                    + '</div>';
+            reTela = '<div data-role="collapsible-set">';
             $.each(retorno.valor, function(index, value) {
-            	//alert(index + ': ' + value.disciplina);
-				reTela += '<div class="ui-block-a">'
-						+ value.disciplina
-						+ '</div>'
-						+ '<div class="ui-block-b">'
-						+ value.nota
-						+ '</div>'
-						+ '<div class="ui-block-c">'
-						+ value.frequencia
-						+ '</div>';
+				reTela += '<div data-role="collapsible" data-theme="e">'
+                        + '  <h3>' + value.disciplina + '</h3>'
+                        + '  <div class="ui-grid-b">'
+                        + '    <div class="ui-block-a">' + '[ ' + value.Data_01 + ' ]  [ ' + value.Data_02 + ' ] </div>'
+                        + '    <div class="ui-block-b">' + '[ ' + value.Data_03 + ' ]  [ ' + value.Data_04 + ' ] </div>'
+                        + '    <div class="ui-block-c">' + '[ ' + value.Data_05 + ' ]  [ ' + value.Data_06 + ' ] </div>'
+                        + '  </div>'
+                        + '</div>';
 			});
-			reTela += "</div>";
-            $('#nomeTurma').after(reTela);
-            $('#nomeTurma').html("Turma: "+retorno.nomeTurma);
+			//reTela += "</div>";
+            //console.log(reTela);
+            $novo = "<div data-role=\"collapsible\" data-theme=\"e\"><h3>OPA</h3><p>rnrnrnrnrnrnrnrnrnrnrnrnrnrnrnrnrnrnrnrnrnrnr</p></div>";
+            $('#meioCronograma').html($novo);
+            //$('#nomeTurma').html("Turma: "+retorno.nomeTurma);
         }
     });
 }
@@ -237,7 +228,7 @@ function carregandoAvisos() {
         success  : function(retorno){
             console.log(retorno);            
             //var retorno;
-            $('#tituloAviso').after(retorno.valor);
+            //$('#tituloAviso').after(retorno.valor);
         }
     });
 }

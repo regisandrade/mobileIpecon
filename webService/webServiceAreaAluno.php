@@ -47,13 +47,15 @@ class webServiceAreaAluno extends database {
 				$sql   = "SELECT Turma FROM alunos_academicos WHERE Aluno = ? GROUP BY Turma ORDER BY Ano";
 				$rs    = $this->conectar()->prepare($sql);
 				$count = $rs->execute(array($registro->Id_Numero));
+				$arrTurmas = array();
 				while ($registro = $rs->fetch(PDO::FETCH_OBJ)) {
-					$arrTurmas[] = $registro['Turma'];
+					$arrTurmas = $registro->Turma;
 				}
 
 				// Sessão
-				$_SESSION['NOME'] = $registro->Nome;
-				$_SESSION['ID_NUMERO_ALUNO'] = $registro->Id_Numero;
+				$_SESSION['NOME'] = $resposta['dados']['nome'];
+				$_SESSION['ID_NUMERO_ALUNO'] = $resposta['dados']['id_numero'];
+				$_SESSION['EMAIL'] = $registro->e_Mail ? $registro->e_Mail : 'E-mail não cadastrado.';
 				$_SESSION['TURMAS'] = $arrTurmas;
 			}
 			$this->desconectar();
@@ -88,7 +90,7 @@ class webServiceAreaAluno extends database {
 					       DIS.Nome";
 			$rs    = $this->conectar()->prepare($sql);
 			$count = $rs->execute(array($_SESSION['ID_NUMERO_ALUNO']));
-
+			
 			if($count === false){
 				$resposta['msgResposta'] = "Nenhum registro encontrado.";
 				$resposta['caminho']     = "";
@@ -101,15 +103,17 @@ class webServiceAreaAluno extends database {
 						$turma = $registro->NomeTurma;
 					}
 					$valor[$volta] = array('disciplina' => utf8_encode($registro->NomeDisciplina),
-															 'nota'       => $registro->Nota,
-															 'frequencia' => $registro->Frequencia );
+										   'nota'       => $registro->Nota,
+										   'frequencia' => $registro->Frequencia );
 					$volta++;
 				}
 				$resposta['valor']     = $valor;
-				$resposta['nomeTurma'] = $turma;
+				$resposta['nomeTurma'] = utf8_encode($turma);
 				$resposta['sucesso']   = true;
 			}
-			$this->desconectar();
+			// echo "<pre>";
+			// print_r($resposta);
+			// $this->desconectar();
 			echo json_encode($resposta);
 		} catch (Exception $e) {
 			$resposta['msgResposta'] = $e->getMessage();
@@ -146,7 +150,9 @@ class webServiceAreaAluno extends database {
 					       TUR.Nome, CRO.Data_01, CRO.Data_02, CRO.Data_03, CRO.Data_04, CRO.Data_05, CRO.Data_06 DESC";
 			$rs    = $this->conectar()->prepare($sql);
 			$count = $rs->execute(array($_SESSION['TURMAS']));
-
+			// echo "<pre>";
+			// print_r($resposta);
+			// $this->desconectar();
 			if($count === false){
 				$resposta['msgResposta'] = "Nenhum registro encontrado.";
 				$resposta['caminho']     = "";
@@ -159,20 +165,21 @@ class webServiceAreaAluno extends database {
 						$nomeTurma = $registro->Turma.' - '.$registro->NomeTurma;
 					}
 					$valor[$volta] = array('disciplina' => utf8_encode($registro->Disciplina),
-										   'Data_01'    => $registro->Data_01,
-										   'Data_02'    => $registro->Data_02,
-										   'Data_03'    => $registro->Data_03,
-										   'Data_04'    => $registro->Data_04,
-										   'Data_05'    => $registro->Data_05,
-										   'Data_06'    => $registro->Data_06 );
+										   'Data_01'    => ($registro->Data_01 == '00/00/0000') ? '' : $registro->Data_01,
+										   'Data_02'    => ($registro->Data_02 == '00/00/0000') ? '' : $registro->Data_02,
+										   'Data_03'    => ($registro->Data_03 == '00/00/0000') ? '' : $registro->Data_03,
+										   'Data_04'    => ($registro->Data_04 == '00/00/0000') ? '' : $registro->Data_04,
+										   'Data_05'    => ($registro->Data_05 == '00/00/0000') ? '' : $registro->Data_05,
+										   'Data_06'    => ($registro->Data_06 == '00/00/0000') ? '' : $registro->Data_06);
 					$volta++;
 				}
-				$resposta['valor']   = $valor;
-				$resposta['nomeTurma']   = $nomeTurma;
-				$resposta['sucesso'] = true;
+				$resposta['valor']     = $valor;
+				$resposta['nomeTurma'] = utf8_encode($nomeTurma);
+				$resposta['sucesso']   = true;
 			}
 			$this->desconectar();
 			echo json_encode($resposta);
+			return $valor;
 		} catch (Exception $e) {
 			$resposta['msgResposta'] = $e->getMessage();
 			$resposta['sucesso']     = false;
@@ -200,18 +207,18 @@ class webServiceAreaAluno extends database {
 				$resposta['caminho']     = "";
 				$resposta['sucesso']     = false;
 			}else{
+				$valor = "<div data-role=\"collapsible-set\"> \n";
 				$volta = 0;
-				$valor = "\n\t<div data-role=\"collapsible-set\">\n";
 				while ($registro = $rs->fetch(PDO::FETCH_OBJ)) {
-					$valor .= "<div data-role=\"collapsible\" data-collapsed=\"false\">";
-                    $valor .= "    <h3>";
-                    $valor .= utf8_encode($registro->Titulo);
-                    $valor .= "    </h3>";
-                    $valor .= "    <p>".utf8_encode($registro->Descricao)."</p>";
-                    $valor .= "</div>";
+					$valor .= "\t <div data-role=\"collapsible\" data-theme=\"e\"> \n";
+					$valor .= "\t\t <h3>".utf8_encode($registro->Titulo)."</h3> \n";
+					$valor .= "\t\t <p>".utf8_encode(nl2br($registro->Descricao))."</p> \n";
+					$valor .= "\t </div> \n\n";
+					// $valor[$registro->Codg_Aviso] = array('titulo'    => utf8_encode($registro->Titulo),
+					// 									  'descricao' => utf8_encode($registro->Descricao) );
 					$volta++;
 				}
-				$valor .= "\n\t<\div>\n";
+				$valor .= "</div>";
 				$resposta['valor']   = $valor;
 				$resposta['sucesso'] = true;
 			}
