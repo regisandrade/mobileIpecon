@@ -1,10 +1,9 @@
 <?php
 /**
-* Classe respons�vel por opera��es relacionadas a GCINFO
+* Classe responsavel por operacoes relacionadas a base de dados IPECON
 * @author Regis Andrade <regisandrade@gmail.com>
 * @access public
 * @version 0.1
-* @copyright Copyright � 2006.
 */
 
 class Gcinfo {

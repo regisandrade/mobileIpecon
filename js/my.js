@@ -109,16 +109,18 @@ function enviarEmail(){
 }
 
 function initialize() {
-    var param = "idMateria="+_GET('idMateria');
+    var param = "id="+_GET('id')+"&topico="+_GET('topico');
 	loading("Carregando...");
     $.ajax({
         type     : 'POST',
         dataType : 'JSON',
-        url      : 'http://m.ipecon.com.br/webService/webServiceGcInfo.php',
+        //url      : 'http://m.ipecon.com.br/webService/webServiceIpecon.php',
+        url      : 'http://localhost/public_html/mobileipecon/webService/webServiceIpecon.php',
         data     : param,
         cache    : false,
         success  : function(retorno){
-            $('#textoInfoCompleta').html(retorno.info_completa);
+            $('#titulo').html(retorno.titulo);
+            $('#conteudo').html(retorno.texto);
             //$('#textoEmpresa').html(retorno.info_completa);
         }
     });

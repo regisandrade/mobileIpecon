@@ -26,16 +26,16 @@ class BDMySQL 	{
 	*/
 	function conectar(){
 		/** Conexão de produção **/
-		$this->hostname		=	'50.22.37.199';
+		/*$this->hostname		=	'50.22.37.199';
 		$this->usuario		=	'control1_ugcinfo';
 		$this->senha		=	'tre147!!';
-		$this->bancoDeDados	=	'control1_gcinfo';
+		$this->bancoDeDados	=	'control1_gcinfo';*/
 	
 		/** Conexão de desenv **/
-		/*$this->hostname		=	'localhost';
-		$this->usuario		=	'root';
-		$this->senha		=	'123456';
-		$this->bancoDeDados	=	'regis_gcinfo';*/
+		$this->hostname		=	'localhost';
+		$this->usuario		=	'sge';
+		$this->senha		=	'sge123';
+		$this->bancoDeDados	=	'sge';
 				
 		
 		if(!($this->idConexao =  mysql_connect($this->hostname, $this->usuario, $this->senha))){
