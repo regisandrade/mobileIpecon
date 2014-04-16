@@ -119,8 +119,29 @@ function initialize() {
         data     : param,
         cache    : false,
         success  : function(retorno){
-            $('#titulo').html(retorno.titulo);
-            $('#conteudo').html(retorno.texto);
+            if (_GET('topico') == 'empresa') {
+                $('#titulo').html(retorno.titulo);
+                $('#conteudo').html(retorno.texto);
+            } 
+            else if (_GET('topico') == 'curso') {
+                $('#titulo').html(retorno.curso);
+                $('#apresentacao').html(retorno.apresentacao);
+                $('#publico').html(retorno.publico);
+                $('#datas').html(retorno.datas);
+                $('#inscricao').html(retorno.inscricao);
+                $('#avaliacao').html(retorno.avaliacao);
+                $('#disciplinas').html(retorno.disciplinas);
+                $('#metodologia').html(retorno.metodologia);
+                $('#certificados').html(retorno.certificados);
+                $('#duracao').html(retorno.duracao);
+                $('#vagas').html(retorno.numeroVagas);
+                $('#coordenacaogeral').html(retorno.coordenacaogeral);
+                $('#coordenacaoacademica').html(retorno.coordenacaoacademica);
+                $('#horario').html(retorno.horario);
+                $('#processo').html(retorno.processo);
+                $('#corpoDocente').html(retorno.corpoDocente);
+                $('#informacoes').html(retorno.informacoes);
+            };
             //$('#textoEmpresa').html(retorno.info_completa);
         }
     });
