@@ -12,6 +12,15 @@
 h3{
 	font-size: 11px;
 }
+
+img {
+	width: 150px;
+	position: relative;
+	left: 40%;
+}
+.ui-btn-left{
+	top: 15px !important;
+}
 .tituloGrig{
 	font-weight: bold;
 }
@@ -28,4 +37,8 @@ h3{
 	width: 10%;
 	border-bottom: solid 1px #CCC;
 	text-align: center;
+}
+p > span {
+	font-family: "Oxygen",sans-serif;
+	font-size: 13px;
 }
