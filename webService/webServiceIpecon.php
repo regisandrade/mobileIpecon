@@ -17,7 +17,7 @@ switch ($_POST['topico']) {
 	case 'curso':
 		$ipecon->listarConteudoCurso($_POST['id']);
 		$retorno = $conexao->retornaArray();
-		$dados = array('curso' => $retorno['codg_curso_descricao'],
+		$dados = array('curso' => utf8_encode($retorno['nomeCurso']),
 					   'apresentacao'  => nl2br(utf8_encode($retorno['apresentacao'])),
 					   'publico'  => nl2br(utf8_encode($retorno['publico'])),
 					   'datas'  => nl2br(utf8_encode($retorno['datas'])),

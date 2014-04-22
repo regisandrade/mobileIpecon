@@ -40,7 +40,14 @@ class Ipecon {
 	function listarConteudoCurso($_id){
 		global $conexao;
 		
-		$consulta = "SELECT * FROM descricaoCursos WHERE codg_curso_descricao = ".$_id;
+		$consulta = "SELECT 
+						D.*,
+						C.nome AS nomeCurso
+					 FROM 
+					 	descricaoCursos D
+					 INNER JOIN curso C ON C.id = D.codg_curso_descricao 
+					 WHERE 
+					 	D.codg_curso_descricao = ".$_id;
 		
 		/*echo $cons;*/
 		if($conexao->executaConsulta($consulta))

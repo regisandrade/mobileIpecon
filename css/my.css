@@ -38,7 +38,13 @@ img {
 	border-bottom: solid 1px #CCC;
 	text-align: center;
 }
+h2 {
+	font-family: "Oxygen",sans-serif;
+}
 p > span {
 	font-family: "Oxygen",sans-serif;
-	font-size: 13px;
+	font-size: 15px;
+}
+.img-social{
+	width: 32px;
 }
